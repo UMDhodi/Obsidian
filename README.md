@@ -1,20 +1,50 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+<img width="1200" height="475" alt="GHBanner" src="obsidian_banner.png" />
 </div>
 
-# Run and deploy your AI Studio app
+<h1 align="center" id="title">Obsidian pro series</h1>
 
-This contains everything you need to run your app locally.
+<p id="description">Obsidian Men's Care is a high-end, dark-themed landing page and e-commerce concept for a premium men's grooming brand. The project is designed with a "macho" aesthetic, emphasizing precision engineering and "tactical" skincare. It utilizes modern web technologies to provide a smooth, interactive user experience, including a consultation feature that leverages local sample data to provide personalized grooming strategies.</p>
 
-View your app in AI Studio: https://ai.studio/apps/drive/1RJweDTv32tHmXmJonJGQrHqRmE1TAgOx
+<h2>Technical Stack</h2>
+The project is built using a robust frontend architecture:
 
-## Run Locally
+***Framework:***  React (v19).
 
-**Prerequisites:**  Node.js
+***Styling:*** Tailwind CSS for rapid, utility-first styling.
 
+**Animations:**
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+***GSAP (GreenSock):*** Used for scroll-based parallax effects and initial element entrance reveals.
+
+***Framer Motion:*** Handles smooth UI transitions, component mounting/unmounting, and interactive states.
+
+***Icons:*** Lucide React for a clean, technical iconography set.
+
+***Bundler/Build Tool:*** Vite.
+
+<h2>🛠️ Installation Steps:</h2>
+
+<p>1. Clone the repository</p>
+
+```
+git clone https://github.com/UMDhodi/Obsidian.git
+```
+
+```
+cd Obsidian
+```
+
+<p>2. Install Dependencies</p>
+
+```
+npm install
+```
+
+```
+npm run dev
+```
+
+<h2>💖Like my work?</h2>
+
+***Author:*** UMDhodi (**Niora Star**)

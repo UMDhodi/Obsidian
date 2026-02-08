@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getSkinConsultation } from '../services/geminiService';
+// Removed geminiService import
 import { ConsultationResponse } from '../types';
 import { SKIN_SAMPLES } from '../constants';
-import { Shield, Target, Activity, Zap, Quote } from 'lucide-react';
+import { Shield, Target, Activity, Quote } from 'lucide-react';
 
 const TacticalLoader = () => {
   const steps = ["TARGETING...", "MAPPING...", "ANALYZING...", "FORGING..."];
@@ -15,7 +14,7 @@ const TacticalLoader = () => {
       setCurrentStep((prev) => (prev < steps.length - 1 ? prev + 1 : prev));
     }, 800);
     return () => clearInterval(interval);
-  }, []);
+  }, [steps.length]); // Added steps.length to dependency array for best practice
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center space-y-8 p-12 bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden relative">
@@ -35,9 +34,14 @@ const AIConsultant: React.FC = () => {
   const handleConsult = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const minLoad = new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Simulate a brief local processing delay to keep the "Tactical Loader" effect
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
     try {
-      const [data] = await Promise.all([getSkinConsultation(skinType, concerns), minLoad]);
+      // Direct retrieval from local SKIN_SAMPLES instead of API call
+      // Use 'Oily' as a fallback if the selected type isn't in the sample data
+      const data = SKIN_SAMPLES[skinType] || SKIN_SAMPLES['Oily'];
       setResult(data);
     } catch (err) {
       setResult(SKIN_SAMPLES['Oily']);
@@ -49,7 +53,6 @@ const AIConsultant: React.FC = () => {
   return (
     <section id="consultant" className="py-32 px-8 md:px-20 bg-zinc-950 relative">
       <div className="max-w-7xl mx-auto">
-        {/* Editorial Header */}
         <div className="mb-24 flex flex-col md:flex-row items-end justify-between gap-8 border-b border-zinc-900 pb-12">
           <div className="space-y-4">
             <span className="text-xs font-black uppercase tracking-[0.8em] text-zinc-600 block">Editorial Vol. 01</span>
@@ -62,12 +65,11 @@ const AIConsultant: React.FC = () => {
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12 items-start">
-          {/* Form Side - Magazine Column */}
           <div className="lg:col-span-5 space-y-12">
             <div className="relative aspect-[4/5] bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 group">
-              <img 
-                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop" 
-                alt="Tactical Grooming" 
+              <img
+                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop"
+                alt="Tactical Grooming"
                 className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
@@ -83,6 +85,7 @@ const AIConsultant: React.FC = () => {
                 <select value={skinType} onChange={(e) => setSkinType(e.target.value)} className="w-full bg-zinc-950 border border-zinc-800 p-4 text-white uppercase text-xs font-bold focus:outline-none appearance-none">
                   <option value="Oily">Oily Control</option>
                   <option value="Dry">Maximum Hydration</option>
+                  {/* These match the keys in constants.tsx/SKIN_SAMPLES if defined, otherwise fall back to Oily */}
                   <option value="Combat-Worn (Sensitive)">Sensitive Defense</option>
                   <option value="Normal (Standard)">Elite Maintenance</option>
                 </select>
@@ -97,7 +100,6 @@ const AIConsultant: React.FC = () => {
             </form>
           </div>
 
-          {/* Results Side - The "Magazine Layout" Result */}
           <div className="lg:col-span-7 h-full min-h-[600px]">
             <AnimatePresence mode="wait">
               {loading ? (
@@ -111,7 +113,7 @@ const AIConsultant: React.FC = () => {
                       <div className="w-12 h-px bg-white" />
                       <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white">The Daily Protocol</span>
                     </div>
-                    
+
                     <div className="grid md:grid-cols-2 gap-8">
                       {result.routine.map((step, idx) => (
                         <div key={idx} className="group border-l border-zinc-800 pl-6 space-y-2 py-2 hover:border-white transition-colors">
@@ -145,8 +147,8 @@ const AIConsultant: React.FC = () => {
                 </motion.div>
               ) : (
                 <div className="h-full border-2 border-dashed border-zinc-900 rounded-xl flex items-center justify-center p-20 text-center flex-col gap-6">
-                   <Target size={60} className="text-zinc-900" />
-                   <p className="text-zinc-800 text-xs font-black uppercase tracking-[0.5em]">Input Parameters To Retrieve Intel</p>
+                  <Target size={60} className="text-zinc-900" />
+                  <p className="text-zinc-800 text-xs font-black uppercase tracking-[0.5em]">Input Parameters To Retrieve Intel</p>
                 </div>
               )}
             </AnimatePresence>

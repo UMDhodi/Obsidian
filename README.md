@@ -2,7 +2,7 @@
 <img width="1200" height="475" alt="GHBanner" src="obsidian_banner.png" />
 </div>
 
-<h1 align="center" id="title"><strong>Obsidian Pro Series</strong></h1>
+<h1 align="center" id="title"> **Obsidian Pro Series** </h1>
 
 <p id="description">Obsidian Men's Care is a high-end, dark-themed landing page and e-commerce concept for a premium men's grooming brand. The project is designed with a "macho" aesthetic, emphasizing precision engineering and "tactical" skincare. It utilizes modern web technologies to provide a smooth, interactive user experience, including a consultation feature that leverages local sample data to provide personalized grooming strategies.</p>
 
